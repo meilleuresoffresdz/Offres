@@ -62,7 +62,7 @@ button{width:100%;background:var(--ok);color:#fff;border:0;border-radius:12px;pa
 <div class="tot"><div><span>الباك</span><span id="tp">750 الف</span></div><div><span>التوصيل</span><span id="tl">—</span></div><div class="g"><span>المجموع للدفع</span><span id="tt">—</span></div></div>
 <button type="submit">اطلب الآن</button>
 <p class="note">الدفع عند الاستلام. سنتصل بك لتأكيد الطلب.</p><div id="wf" class="card" hidden></div>
-</form></div>
+</form><div class="card" style="text-align:center"><p style="margin:0 0 10px">لأي استفسار تواصلوا معنا في واتساب</p><a href="https://wa.me/213558363855" target="_blank" rel="noopener" style="display:block;background:#12805c;color:#fff;padding:14px;border-radius:12px;font-weight:700;text-decoration:none">تواصل معنا عبر واتساب</a></div></div>
 <script>
 var WA="213558363855";
 var P={A:["الباك 1 – ميتيجور دوش + مطبخ حائطي + لافابو",7500],B:["الباك 2 – ميتيجور دوش + مطبخ ليفي + لافابو",7500],C:["الباك 3 – ميتيجور بينوار + مطبخ + لافابو",7900]};
@@ -85,12 +85,12 @@ document.querySelector('input[name=m][value=bur]').addEventListener("click",func
 function send(e){e.preventDefault();var w=cur(),p=pk(),m=md();if(!w){alert("اختر ولايتك");return false}
 var l=m=="dom"?w.d:w.b,k=p=="C"?" (مطبخ "+$("k").value+")":"";
 var t="طلب جديد\n"+P[p][0]+k+"\nالاسم : "+$("n").value+"\nالهاتف : "+$("t").value+"\nالولاية : "+w.c+" - "+AR[w.c-1]+"\nالتوصيل : "+(m=="dom"?"إلى المنزل – "+$("a").value:"إلى المكتب – "+B[w.c][+document.querySelector('input[name=bo]:checked').value][0])+"\nسعر الباك : "+f(P[p][1])+"\nسعر التوصيل : "+f(l)+"\nالمجموع : "+f(P[p][1]+l);
-var KEY="a879ed62-2650-4d33-8bef-62d848c57e89",u="https://wa.me/"+WA+"?text="+encodeURIComponent(t),bx=$("wf"),btn=document.querySelector('#f button[type=submit]');
+var SH="https://script.google.com/macros/s/AKfycbz2sEpf13h2mbxsYD4U0W6vX1OL4QUxRV1FjnMHnz-T5_61XYq4kiedNmrP8SqNFQ6j/exec",bx=$("wf"),btn=document.querySelector('#f button[type=submit]'),pl={name:$("n").value,phone:$("t").value,message:t};
 btn.disabled=true;btn.textContent="جاري الإرسال...";
 function show(ok){btn.disabled=false;btn.textContent="اطلب الآن";bx.hidden=false;
-bx.innerHTML=(ok?'<p><b>\u2714 تم استلام طلبك</b><br>سنتصل بك قريباً لتأكيد الطلب.</p>':'<p><b>تعذر إرسال الطلب</b><br>أرسله لنا عبر واتساب، أو انسخه وأرسله على الرقم 0558363855</p>')+'<a href="'+u+'" target="_blank" rel="noopener" style="display:block;background:#12805c;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:700;text-decoration:none">'+(ok?'إرسال نسخة عبر واتساب (اختياري)':'فتح واتساب')+'</a>'+(ok?'':'<textarea id="wt" rows="8" readonly style="margin-top:8px"></textarea><button type="button" onclick="cp()">نسخ الطلب</button>');
-if(!ok)$("wt").value=t;bx.scrollIntoView()}
-fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:KEY,subject:"طلب جديد - "+$("n").value,from_name:"Meilleures Offres DZ",name:$("n").value,phone:$("t").value,message:t})}).then(function(r){return r.json()}).then(function(d){if(!d.success)throw 0;show(true)}).catch(function(){show(false)});
+bx.innerHTML=ok?'<p><b>\u2714 تم استلام طلبك</b><br>سنتصل بك قريباً لتأكيد الطلب.</p>':'<p><b>تعذر إرسال الطلب</b><br>تأكد من اتصالك بالإنترنت وحاول مرة أخرى.</p>';
+if(ok){$("f").reset();upd()}bx.scrollIntoView()}
+fetch(SH,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(pl)}).then(function(){show(true)}).catch(function(){show(false)});
 return false}
 function cp(){var e=$("wt");e.select();try{navigator.clipboard.writeText(e.value)}catch(x){document.execCommand("copy")}alert("تم النسخ")}
 </script></body></html>
